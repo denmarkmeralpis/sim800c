@@ -114,12 +114,12 @@ device.battery_info
 
 ```ruby
 client.storage_info
-# => {
+# => [{
 #       storage_type: "read_write",
 #       memory: "SM",
 #       used: 2,
 #       total: 30
-#    }
+#    }]
 ```
 
 ### TODOs:
