@@ -33,8 +33,21 @@ module Sim800c
 
       def perform_delete!(cmd)
         at_cmd(cmd)
-        response = read_response(wait_time: 1)
+        response = read_cmg_response
         return_or_raise_error!(response)
+      end
+
+      def read_cmg_response
+        response = String.new
+
+        loop do
+          chunk = @serial.read(1024)
+          response << chunk
+          break if chunk.include?('OK') || chunk.include?('ERROR')
+          sleep(0.3)
+        end
+
+        response
       end
     end
   end
