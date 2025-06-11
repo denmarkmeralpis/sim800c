@@ -19,7 +19,7 @@ module Sim800c
 
         at_cmd("#{message}#{26.chr}")
         response = read_response(wait_time: 1)
-        response[-10, 10].include?("\r\nOK\r\n")
+        response.lines.last.chomp.eql?('OK')
       end
 
       # Stores and sends the message using AT+CMGW and AT+CMSS
@@ -36,7 +36,7 @@ module Sim800c
 
         at_cmd("AT+CMSS=#{index}") if index
         response = read_response(wait_time: 1)
-        response[-10, 10].include?("\r\nOK\r\n")
+        response.lines.last.chomp.eql?('OK')
       end
     end
   end
