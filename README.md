@@ -4,7 +4,7 @@
 
 ---
 
-## ✨ Features
+## Features
 
 - 📤 Send SMS (immediate or stored)
 - 📩 Read, list, and delete messages
