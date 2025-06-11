@@ -22,7 +22,7 @@ RSpec.describe Sim800c::Commands::Device do
     end
 
     context 'when +CBC line not found' do
-      it 'returns Hash' do
+      it 'returns "No valid +CBC line found." message' do
         output = "AT+\n\r\nERROR\r\n"
         allow(serial).to receive(:read).and_return(output)
 
