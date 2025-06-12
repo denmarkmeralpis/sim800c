@@ -68,8 +68,8 @@ client.delete_message.by_index(1)
 messages = client.list_messages
 
 messages.all    # => All messages
-messages.unread # => => Only unread messages
-messages.read   # => Sent messages
+messages.unread # => Only unread messages
+messages.read   # => Read messages
 messages.unsent # => Unsent messages
 messages.sent   # => Sent messages
 ```
