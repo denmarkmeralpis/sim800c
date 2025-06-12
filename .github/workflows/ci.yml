@@ -15,7 +15,7 @@ jobs:
       image: ruby:3.1-alpine
     steps:
       - name: Install dependencies
-        run: apk add --no-cache build-base git libffi-dev
+        run: apk add --no-cache build-base git libffi-dev libyaml-dev
 
       - name: Checkout code
         uses: actions/checkout@v3
