@@ -17,7 +17,9 @@ module Sim800c
       private
 
       def parse_cbc_response(response)
-        if match = response.match(/\+CBC:\s*(\d+),(\d+),(\d+)/)
+        match = response.match(/\+CBC:\s*(\d+),(\d+),(\d+)/)
+
+        if match
           bcs, bcl, voltage = match.captures.map(&:to_i)
 
           {

@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.version = Sim800c::VERSION
   spec.authors = ['Nujian Den Mark Meralpis']
   spec.email = ['denmarkmeralpis@gmail.com']
-  spec.summary = 'Easy serial communication with the SIM800C GSM module for sending and receiving SMS messages using Ruby.'
+  spec.summary = 'Easy serial communication with the SIM800C module for sending and receiving SMS messages using Ruby.'
   spec.description = <<~DESCRIPTION
     A lightweight Ruby gem that simplifies communication with SIM800C GSM/GPRS modules
     over a serial connection. Built on top of the modern rubyserial library,
@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   DESCRIPTION
   spec.homepage = 'https://github.com/denmarkmeralpis/sim800c.git'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 2.5'
+  spec.required_ruby_version = '>= 3.1'
   spec.metadata['allowed_push_host'] = 'https://rubygems.org'
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = spec.homepage
@@ -32,5 +32,4 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
   spec.add_dependency 'rubyserial'
-  # spec.add_development_dependency 'debug'
 end

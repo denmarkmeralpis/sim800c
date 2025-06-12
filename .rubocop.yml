@@ -2,7 +2,37 @@ AllCops:
   TargetRubyVersion: 3.1
 
 Style/StringLiterals:
-  EnforcedStyle: double_quotes
+  EnforcedStyle: single_quotes
 
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/AbcSize:
+  Max: 21
+
+Metrics/BlockLength:
+  CountComments: false
+  CountAsOne: [array, hash, heredoc, method_call]
+  Exclude:
+    - spec/**/*
+
+Metrics/MethodLength:
+  Max: 20
+  CountComments: false
+  CountAsOne: [array, hash, heredoc, method_call]
+
+Style/Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  CountComments: false
+  Exclude:
+    - spec/**/*
+
+Metrics/MethodLength:
+  Max: 20
+  CountComments: false
+  CountAsOne: [array, hash, heredoc, method_call]

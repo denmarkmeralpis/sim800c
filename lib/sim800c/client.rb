@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'helpers'
 require_relative 'commands/send_message'
 require_relative 'commands/list_messages'

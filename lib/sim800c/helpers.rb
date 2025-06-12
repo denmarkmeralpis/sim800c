@@ -21,7 +21,7 @@ module Sim800c
       response
     end
 
-    def parse_cmgl_response(response)
+    def parse_cmgl_response(response) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       messages = []
       lines = response.split("\r\n").reject(&:empty?)
 
