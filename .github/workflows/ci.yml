@@ -54,6 +54,15 @@ jobs:
       - name: Build gem
         run: gem build *.gemspec
 
+      - name: Check gem version matches tag
+        run: |
+          TAG_VERSION="${GITHUB_REF##refs/tags/v}"
+          GEM_VERSION=$(ruby -e "spec = Gem::Specification.load(Dir.glob('*.gemspec').first); puts spec.version")
+          if [ "$TAG_VERSION" != "$GEM_VERSION" ]; then
+            echo "Tag version (v$TAG_VERSION) does not match gemspec version ($GEM_VERSION)"
+            exit 1
+          fi
+
       - name: Push to RubyGems
         env:
           RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
