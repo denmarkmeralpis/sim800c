@@ -1,28 +1,64 @@
-name: RSpec Tests
+name: CI
 
 on:
   push:
     branches:
       - '**'
+    tags:
+      - 'v*.*.*'
   pull_request:
-    branches:
-      - '**'
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    container:
+      image: ruby:3.1-alpine
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2' # Use your Ruby version
-          bundler-cache: true
-
       - name: Install dependencies
+        run: apk add --no-cache build-base git libffi-dev
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Bundler
+        run: gem install bundler
+
+      - name: Install gems
         run: bundle install
+
+      - name: Run RuboCop
+        run: bundle exec rubocop
 
       - name: Run RSpec
         run: bundle exec rspec
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: test
+    runs-on: ubuntu-latest
+    container:
+      image: ruby:3.1-alpine
+    steps:
+      - name: Install dependencies
+        run: apk add --no-cache build-base git libffi-dev
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Bundler
+        run: gem install bundler
+
+      - name: Install gems
+        run: bundle install
+
+      - name: Build gem
+        run: gem build *.gemspec
+
+      - name: Push to RubyGems
+        env:
+          RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+        run: |
+          mkdir -p ~/.gem
+          echo -e "---\n:rubygems_api_key: $RUBYGEMS_API_KEY\n" > ~/.gem/credentials
+          chmod 0600 ~/.gem/credentials
+          gem push *.gem
