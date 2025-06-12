@@ -44,6 +44,7 @@ module Sim800c
           chunk = @serial.read(1024)
           response << chunk
           break if chunk.include?('OK') || chunk.include?('ERROR')
+
           sleep(0.3)
         end
 

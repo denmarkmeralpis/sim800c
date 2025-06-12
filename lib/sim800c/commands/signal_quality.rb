@@ -24,7 +24,8 @@ module Sim800c
         at_cmd('AT+CSQ')
         response = @serial.read(100)
         return unless response =~ /\+CSQ:\s*(\d+),/
-        $1.to_i
+
+        ::Regexp.last_match(1).to_i
       end
 
       private

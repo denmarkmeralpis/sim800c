@@ -4,30 +4,26 @@ module Sim800c
   class PortScanner
     def self.find_port
       each_candidate do |port|
-        begin
-          serial = Serial.new(port, 9_600)
-          serial.write("AT\r")
-          sleep 0.3
-          response = serial.read(64).to_s
-          next unless response.include?('OK')
+        serial = Serial.new(port, 9_600)
+        serial.write("AT\r")
+        sleep 0.3
+        response = serial.read(64).to_s
+        next unless response.include?('OK')
 
-          serial.write("ATI\r")
-          sleep 0.3
-          info = serial.read(128).to_s
-          serial.close
+        serial.write("ATI\r")
+        sleep 0.3
+        info = serial.read(128).to_s
+        serial.close
 
-          return port if info =~ /SIM[-_ ]?800C/i
-        rescue => e
-          false
-        ensure
-          serial&.close
-        end
+        return port if info =~ /SIM[-_ ]?800C/i
+      rescue StandardError
+        false
+      ensure
+        serial&.close
       end
     end
 
-    private
-
-    def self.each_candidate
+    def self.each_candidate(&block)
       ports =
         case RUBY_PLATFORM
         when /linux/
@@ -40,7 +36,7 @@ module Sim800c
           []
         end
 
-      ports.each { |port| yield(port) }.first
+      ports.each(&block).first
     end
   end
 end

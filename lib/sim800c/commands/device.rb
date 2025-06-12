@@ -20,13 +20,12 @@ module Sim800c
         if match = response.match(/\+CBC:\s*(\d+),(\d+),(\d+)/)
           bcs, bcl, voltage = match.captures.map(&:to_i)
 
-          result = {
+          {
             charge_status: bcs, # 0 = not charging, 1 = charging
             battery_level: bcl,
             voltage_mv: voltage
           }
 
-          result
         else
           'No valid +CBC line found.'
         end

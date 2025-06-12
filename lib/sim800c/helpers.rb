@@ -14,6 +14,7 @@ module Sim800c
         chunk = @serial.read(bytes)
         response << chunk
         break if chunk.include?("\r\nOK\r\n") || chunk.include?("\r\nERROR\r\n")
+
         sleep(wait_time)
       end
 
@@ -26,23 +27,23 @@ module Sim800c
 
       i = 0
       while i < lines.length
-        if lines[i].start_with?("+CMGL:")
+        if lines[i].start_with?('+CMGL:')
           header = lines[i]
           message_lines = []
 
           # Collect message body lines until next +CMGL or end
           i += 1
-          while i < lines.length && !lines[i].start_with?("+CMGL:")
+          while i < lines.length && !lines[i].start_with?('+CMGL:')
             message_lines << lines[i]
             i += 1
           end
 
           # Parse the header
           if header =~ /^\+CMGL:\s*(\d+),"(.*?)","(.*?)",".*?","(.*?)"$/
-            index = $1.to_i
-            status = $2
-            sender = $3
-            datetime = $4
+            index = ::Regexp.last_match(1).to_i
+            status = ::Regexp.last_match(2)
+            sender = ::Regexp.last_match(3)
+            datetime = ::Regexp.last_match(4)
 
             date, time = datetime.split(',', 2)
             message = message_lines.join("\n").strip

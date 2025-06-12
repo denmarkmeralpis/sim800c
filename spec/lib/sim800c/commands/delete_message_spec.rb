@@ -9,7 +9,6 @@ RSpec.describe Sim800c::Commands::DeleteMessage do
   before do
     allow(Serial).to receive(:new).and_return(serial)
     allow(serial).to receive(:write).and_return(serial)
-
   end
 
   describe '#by_index' do
