@@ -1,4 +1,4 @@
-# Sim800c
+# SIM800C
 
 **Sim800c** is a Ruby gem that provides a clean interface to the SIM800C GSM/GPRS module using AT commands over a serial connection. Easily send SMS, manage inbox/outbox, query signal strength, check battery info, and more.
 
