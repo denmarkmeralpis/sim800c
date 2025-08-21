@@ -39,7 +39,7 @@ gem install sim800c
 ```ruby
 require 'sim800c'
 
-port_path = Sim800c.find_port # /dev/ttyUSB0
+port_path = Sim800c::PortScanner.find_port # /dev/ttyUSB0
 client = Sim800c::Client.new(port_path, baud: 9600)
 
 # Send SMS
